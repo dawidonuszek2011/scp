@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel | Fundacja</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial;
+  background:#0f172a;
+  color:white;
+}
+
+nav{
+  background:#020617;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+section{
+  padding:40px;
+  text-align:center;
+}
+
+.card{
+  background:#1e293b;
+  padding:25px;
+  border-radius:12px;
+  margin:20px auto;
+  max-width:400px;
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:#ef4444;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h2>Fundacja ADO</h2>
+  <button onclick="wyloguj()">Wyloguj</button>
+</nav>
+
+<section>
+  <h1>Witaj w panelu 🎉</h1>
+
+  <div class="card">
+    <h3>📢 Projekty</h3>
+    <p>Tu będzie lista projektów fundacji</p>
+  </div>
+
+  <div class="card">
+    <h3>💰 Donate</h3>
+    <button onclick="donate()">Wpłać 10 zł</button>
+  </div>
+
+  <div class="card">
+    <h3>👥 Społeczność</h3>
+    <p>Tu będzie Discord / social media</p>
+  </div>
+
+</section>
+
+<script>
+if(localStorage.getItem("zalogowany") !== "tak"){
+  window.location.href = "index.html";
+}
+
+function wyloguj(){
+  localStorage.removeItem("zalogowany");
+  window.location.href = "index.html";
+}
+
+function donate(){
+  alert("Tu będzie PayPal/Stripe 😎");
+}
+</script>
+
+</body>
+</html>
