@@ -60,36 +60,38 @@ button{
 
 <nav>
   <h2>Fundacja ADO</h2>
-  <div class="menu">
-    <button onclick="openTab('scp')">SCP</button>
-    <button onclick="openTab('info')">Informacje</button>
-    <button onclick="wyloguj()" style="background:#ef4444">Wyloguj</button>
+  <div>
+    <span id="rola"></span>
+    <button onclick="wyloguj()" style="background:#ef4444;margin-left:15px">Wyloguj</button>
   </div>
 </nav>
 
+<div class="menu" style="padding:15px">
+  <button onclick="openTab('scp')">SCP</button>
+  <button onclick="openTab('info')">Informacje</button>
+</div>
+
 <section>
 
-<!-- TAB SCP -->
 <div id="scp" class="tab">
   <h1>Baza SCP 🧪</h1>
 
   <div class="card">
     <h3>SCP-173</h3>
-    <p>Posąg który porusza się gdy nikt na niego nie patrzy. Bardzo szybki. Bardzo nieprzyjemny.</p>
+    <p>Posąg który porusza się gdy nikt na niego nie patrzy.</p>
   </div>
 
   <div class="card">
     <h3>SCP-096</h3>
-    <p>Jeśli zobaczysz jego twarz, zaczyna biec w twoją stronę. I biegnie aż przestaniesz istnieć.</p>
+    <p>Jeśli zobaczysz jego twarz, zaczyna biec w twoją stronę.</p>
   </div>
 
   <div class="card">
     <h3>SCP-682</h3>
-    <p>Nieśmiertelna jaszczurka, która nienawidzi absolutnie wszystkiego.</p>
+    <p>Nieśmiertelna jaszczurka, która nienawidzi wszystkiego.</p>
   </div>
 </div>
 
-<!-- TAB INFO -->
 <div id="info" class="tab">
   <h1>Informacje o Fundacji</h1>
 
@@ -99,13 +101,8 @@ button{
   </div>
 
   <div class="card">
-    <h3>Czym jest Fundacja?</h3>
-    <p>Tajna organizacja badająca anomalie i zjawiska paranormalne, aby chronić ludzkość.</p>
-  </div>
-
-  <div class="card">
     <h3>Poziom dostępu</h3>
-    <p>Dostęp do tej strony posiada tylko personel upoważniony.</p>
+    <p>Dostęp tylko dla upoważnionego personelu.</p>
   </div>
 </div>
 
@@ -116,8 +113,12 @@ if(localStorage.getItem("zalogowany") !== "tak"){
   window.location.href = "index.html";
 }
 
+const rola = localStorage.getItem("rola");
+document.getElementById("rola").innerText = "Zalogowano jako: " + rola;
+
 function wyloguj(){
   localStorage.removeItem("zalogowany");
+  localStorage.removeItem("rola");
   window.location.href = "index.html";
 }
 
@@ -129,7 +130,6 @@ function openTab(tabName){
   document.getElementById(tabName).style.display = "block";
 }
 
-// domyślnie otwiera SCP
 openTab('scp');
 </script>
 
