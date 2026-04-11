@@ -61,15 +61,22 @@ button{
 </div>
 
 <script>
-const poprawnyLogin = "admin";
-const poprawneHaslo = "ado123";
+// 👇 BAZA KONT
+const konta = [
+  {login:"o5", haslo:"secure123", rola:"Rada O5"},
+  {login:"mtf", haslo:"taskforce", rola:"MTF Operative"},
+  {login:"research", haslo:"lab123", rola:"Researcher"}
+];
 
 function login(){
   const loginInput = document.getElementById("login").value;
   const hasloInput = document.getElementById("haslo").value;
 
-  if(loginInput === poprawnyLogin && hasloInput === poprawneHaslo){
+  const konto = konta.find(k => k.login === loginInput && k.haslo === hasloInput);
+
+  if(konto){
     localStorage.setItem("zalogowany","tak");
+    localStorage.setItem("rola", konto.rola);
     window.location.href = "panel.html";
   } else {
     document.getElementById("error").innerText = "Zły login lub hasło";
