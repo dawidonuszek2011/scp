@@ -21,9 +21,21 @@ nav{
   align-items:center;
 }
 
+.menu{
+  display:flex;
+  gap:15px;
+}
+
+.menu button{
+  background:#1e293b;
+}
+
 section{
-  padding:40px;
-  text-align:center;
+  padding:30px;
+}
+
+.tab{
+  display:none;
 }
 
 .card{
@@ -31,7 +43,7 @@ section{
   padding:25px;
   border-radius:12px;
   margin:20px auto;
-  max-width:400px;
+  max-width:600px;
 }
 
 button{
@@ -39,7 +51,6 @@ button{
   border:none;
   border-radius:8px;
   cursor:pointer;
-  background:#ef4444;
   color:white;
 }
 </style>
@@ -49,26 +60,54 @@ button{
 
 <nav>
   <h2>Fundacja ADO</h2>
-  <button onclick="wyloguj()">Wyloguj</button>
+  <div class="menu">
+    <button onclick="openTab('scp')">SCP</button>
+    <button onclick="openTab('info')">Informacje</button>
+    <button onclick="wyloguj()" style="background:#ef4444">Wyloguj</button>
+  </div>
 </nav>
 
 <section>
-  <h1>Witaj w panelu 🎉</h1>
+
+<!-- TAB SCP -->
+<div id="scp" class="tab">
+  <h1>Baza SCP 🧪</h1>
 
   <div class="card">
-    <h3>📢 Projekty</h3>
-    <p>Tu będzie lista projektów fundacji</p>
+    <h3>SCP-173</h3>
+    <p>Posąg który porusza się gdy nikt na niego nie patrzy. Bardzo szybki. Bardzo nieprzyjemny.</p>
   </div>
 
   <div class="card">
-    <h3>💰 Donate</h3>
-    <button onclick="donate()">Wpłać 10 zł</button>
+    <h3>SCP-096</h3>
+    <p>Jeśli zobaczysz jego twarz, zaczyna biec w twoją stronę. I biegnie aż przestaniesz istnieć.</p>
   </div>
 
   <div class="card">
-    <h3>👥 Społeczność</h3>
-    <p>Tu będzie Discord / social media</p>
+    <h3>SCP-682</h3>
+    <p>Nieśmiertelna jaszczurka, która nienawidzi absolutnie wszystkiego.</p>
   </div>
+</div>
+
+<!-- TAB INFO -->
+<div id="info" class="tab">
+  <h1>Informacje o Fundacji</h1>
+
+  <div class="card">
+    <h3>Misja</h3>
+    <p>Zabezpieczać. Przechowywać. Chronić.</p>
+  </div>
+
+  <div class="card">
+    <h3>Czym jest Fundacja?</h3>
+    <p>Tajna organizacja badająca anomalie i zjawiska paranormalne, aby chronić ludzkość.</p>
+  </div>
+
+  <div class="card">
+    <h3>Poziom dostępu</h3>
+    <p>Dostęp do tej strony posiada tylko personel upoważniony.</p>
+  </div>
+</div>
 
 </section>
 
@@ -82,9 +121,16 @@ function wyloguj(){
   window.location.href = "index.html";
 }
 
-function donate(){
-  alert("Tu będzie PayPal/Stripe 😎");
+function openTab(tabName){
+  const tabs = document.getElementsByClassName("tab");
+  for(let tab of tabs){
+    tab.style.display = "none";
+  }
+  document.getElementById(tabName).style.display = "block";
 }
+
+// domyślnie otwiera SCP
+openTab('scp');
 </script>
 
 </body>
