@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Stare AI</title>
+
+<style>
+body{
+  background:black;
+  color:#00ffcc;
+  font-family:Arial;
+  text-align:center;
+}
+
+.ai-monitor{
+  margin-top:80px;
+  display:flex;
+  gap:40px;
+  align-items:center;
+  justify-content:center;
+}
+
+.screen{
+  width:220px;
+  height:160px;
+  border:4px solid #00ffcc;
+  box-shadow:0 0 25px #00ffcc;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:50px;
+  font-family:monospace;
+}
+
+.status{
+  font-size:22px;
+}
+
+.lock{
+  margin-top:80px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>System AI v1.0</h1>
+
+<div id="lock" class="lock">
+  <p>Podaj hasło dostępu</p>
+  <input type="password" id="pass">
+  <button onclick="loginAI()">Wejdź</button>
+  <p id="tries"></p>
+</div>
+
+<div id="ai" style="display:none">
+  <div class="ai-monitor">
+    <div class="screen" id="face">•_•</div>
+
+    <div class="status">
+      <p>PULS: <span id="pulse">72</span></p>
+      <p>EMOCJA: <span id="emotion">spokój</span></p>
+    </div>
+  </div>
+</div>
+
+<script>
+let tries = 3;
+const password = "OLD_AI_1978";
+
+function loginAI(){
+  const p = document.getElementById("pass").value;
+
+  if(p === password){
+    document.getElementById("lock").style.display="none";
+    document.getElementById("ai").style.display="block";
+  }else{
+    tries--;
+    document.getElementById("tries").textContent="Pozostało prób: "+tries;
+    if(tries<=0){
+      alert("SYSTEM ZABLOKOWANY");
+      document.getElementById("pass").disabled=true;
+    }
+  }
+}
+
+const emotions=["radość","smutek","strach","niepokój","zaskoczenie"];
+const faces=["•‿•","•︵•","⚆_⚆","•_•","•o•"];
+
+function updateAI(){
+  document.getElementById("pulse").textContent=Math.floor(Math.random()*60)+60;
+  let i=Math.floor(Math.random()*5);
+  document.getElementById("emotion").textContent=emotions[i];
+  document.getElementById("face").textContent=faces[i];
+}
+
+setInterval(updateAI,3000);
+updateAI();
+</script>
+
+</body>
+</html>
