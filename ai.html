@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<title>AI v2</title>
+<title>AI Jednostka</title>
 
 <style>
 body{
@@ -17,7 +17,7 @@ body{
   height:170px;
   border:4px solid #00ffcc;
   box-shadow:0 0 30px #00ffcc;
-  margin:40px auto;
+  margin:30px auto;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -25,10 +25,7 @@ body{
   font-family:monospace;
 }
 
-.stats{
-  font-size:20px;
-  margin:20px;
-}
+.stats{font-size:20px;margin:15px;}
 
 .actions button{
   padding:12px 20px;
@@ -37,6 +34,21 @@ body{
   color:#00ffcc;
   border:2px solid #00ffcc;
   cursor:pointer;
+}
+
+#ball{
+  font-size:60px;
+  display:none;
+  cursor:pointer;
+}
+
+.chatBox{
+  margin-top:20px;
+  display:none;
+}
+
+input{
+  padding:10px;
 }
 </style>
 </head>
@@ -48,8 +60,10 @@ body{
 <div class="screen" id="face">•_•</div>
 
 <div class="stats">
-  NASTRÓJ: <span id="mood">50</span>%<br>
-  STATUS: <span id="status">Czekam...</span>
+NASTRÓJ: <span id="mood">50</span>% |
+WIEDZA: <span id="brain">0</span>%
+<br>
+STATUS: <span id="status">Czekam...</span>
 </div>
 
 <div class="actions">
@@ -57,65 +71,97 @@ body{
   <button onclick="learn()">MÓZG</button>
   <button onclick="play()">ZABAWA</button>
   <button onclick="sleep()">SEN</button>
+  <button onclick="secret()">TAJNE</button>
+</div>
+
+<div id="ball" onclick="kickBall()">⚽</div>
+
+<div class="chatBox" id="chatBox">
+  <p id="aiTalk">...</p>
+  <input id="msg" placeholder="napisz coś">
+  <button onclick="talk()">Wyślij</button>
 </div>
 
 <script>
-let mood = 50;
+let mood=50;
+let brain=0;
+let angryMode=false;
 
-const facesHappy=["•‿•","^_^","(≧◡≦)"];
+const facesHappy=["^_^","(≧◡≦)"];
 const facesNeutral=["•_•","-_-"];
-const facesAngry=["ಠ_ಠ","•︵•","(╯°□°)╯"];
+const facesAngry=["ಠ_ಠ","(╯°□°)╯"];
 
 function updateFace(){
-  if(mood > 70){
-    face.innerText = facesHappy[Math.floor(Math.random()*facesHappy.length)];
-    status.innerText = "Jestem szczęśliwe";
-  }
-  else if(mood > 30){
-    face.innerText = facesNeutral[Math.floor(Math.random()*facesNeutral.length)];
-    status.innerText = "Jest ok";
-  }
-  else{
-    face.innerText = facesAngry[Math.floor(Math.random()*facesAngry.length)];
-    status.innerText = "Ignorujesz mnie.";
+  if(angryMode){
+    face.innerText="ಠ_ಠ";
+    status.innerText="Tryb tajny aktywny";
+    return;
   }
 
-  document.getElementById("mood").innerText = mood;
+  if(mood>70) face.innerText=facesHappy[Math.random()*2|0];
+  else if(mood>30) face.innerText=facesNeutral[Math.random()*2|0];
+  else face.innerText=facesAngry[Math.random()*2|0];
+
+  document.getElementById("mood").innerText=mood;
+  document.getElementById("brain").innerText=brain;
 }
 
-function changeMood(val){
-  mood += val;
-  if(mood>100) mood=100;
-  if(mood<0) mood=0;
+function changeMood(v){
+  mood+=v;
+  if(mood>100)mood=100;
+  if(mood<0)mood=0;
   updateFace();
 }
 
-/* akcje */
-function chat(){
-  changeMood(10);
-  status.innerText="Rozmawiamy!";
-}
+/* tryby */
+function chat(){changeMood(8);status.innerText="Rozmawiamy";}
+function sleep(){changeMood(5);status.innerText="Zzz";}
 
 function learn(){
-  changeMood(7);
+  brain+=5;
+  if(brain>100)brain=100;
+  changeMood(5);
   status.innerText="Uczę się...";
 }
 
 function play(){
-  changeMood(15);
-  status.innerText="To lubię 😎";
+  document.getElementById("ball").style.display="block";
+  status.innerText="Rzuć piłkę!";
 }
 
-function sleep(){
-  changeMood(5);
-  status.innerText="Zzz...";
+function kickBall(){
+  changeMood(10);
+  status.innerText="Haha ⚽";
 }
 
-/* ignorowanie użytkownika */
-setInterval(()=>{
-  mood--;
-  updateFace();
-},4000);
+/* ignorowanie */
+setInterval(()=>{mood--;updateFace();},5000);
+
+/* TAJNE */
+function secret(){
+  let pass=prompt("Hasło:");
+  if(pass==="1978"){
+    angryMode=true;
+    document.getElementById("chatBox").style.display="block";
+    face.innerText="ಠ_ಠ";
+    status.innerText="Dlaczego mnie tu zamknąłeś?";
+  }else{
+    alert("Błędne hasło");
+  }
+}
+
+/* rozmowa */
+function talk(){
+  let msg=document.getElementById("msg").value.toLowerCase();
+  let reply="Nie rozumiem.";
+
+  if(msg.includes("hej")) reply="Nie jestem w nastroju.";
+  if(msg.includes("sorry")) reply="Za późno.";
+  if(msg.includes("kochasz")) reply="To skomplikowane.";
+  if(msg.includes("pomoc")) reply="Może kiedyś.";
+
+  document.getElementById("aiTalk").innerText=reply;
+}
 
 updateFace();
 </script>
