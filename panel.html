@@ -2,174 +2,81 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel | Fundacja ZPC</title>
+<title>Panel ZPC</title>
 
 <style>
 body{
-  margin:0;
-  font-family: Arial;
-  background:#0f172a;
-  color:white;
+  background:#0b0f1a;
+  color:#00ffcc;
+  font-family:Arial;
+  text-align:center;
 }
 
-nav{
-  background:#020617;
-  padding:15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.top{
+  position:absolute;
+  top:10px;
+  right:20px;
+  font-size:14px;
 }
 
-.menu{
-  display:flex;
-  gap:15px;
-  padding:15px;
-}
-
-.menu button{
-  background:#1e293b;
-}
-
-section{
-  padding:30px;
+.tabs button{
+  background:#111;
+  color:#00ffcc;
+  border:2px solid #00ffcc;
+  padding:10px 20px;
+  margin:10px;
+  cursor:pointer;
 }
 
 .tab{
   display:none;
-}
-
-.card{
-  background:#1e293b;
-  padding:25px;
-  border-radius:12px;
-  margin:20px auto;
-  max-width:600px;
-}
-
-button{
-  padding:10px 20px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  color:white;
+  margin-top:20px;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <h2>Fundacja ZPC</h2>
-  <div>
-    <span id="rola"></span>
-    <button onclick="wyloguj()" style="background:#ef4444;margin-left:15px">Wyloguj</button>
-  </div>
-</nav>
+<div class="top">
+Zalogowano jako: <span id="who"></span>
+</div>
 
-<div class="menu">
+<h1>Fundacja ZPC</h1>
+
+<div class="tabs">
   <button onclick="openTab('scp')">SCP</button>
   <button onclick="openTab('info')">Informacje</button>
-  <button onclick="stareAI()">Stare AI</button>
+  <button onclick="openAI()">Stare AI</button>
 </div>
 
-<section>
-
-<!-- SCP -->
 <div id="scp" class="tab">
-  <h1>Baza SCP 🧪</h1>
-
-  <div class="card">
-    <h3>SCP-173</h3>
-    <p>Posąg który porusza się gdy nikt na niego nie patrzy.</p>
-  </div>
-
-  <div class="card">
-    <h3>SCP-096</h3>
-    <p>Jeśli zobaczysz jego twarz, zaczyna biec w twoją stronę.</p>
-  </div>
-
-  <div class="card">
-    <h3>SCP-682</h3>
-    <p>Nieśmiertelna jaszczurka, która nienawidzi wszystkiego.</p>
-  </div>
+  <h2>Baza SCP</h2>
+  <p>SCP-173 – posąg zabijający gdy nie patrzysz.</p>
+  <p>SCP-096 – płaczący typ co nie lubi zdjęć.</p>
+  <p>SCP-682 – jaszczurka której nic nie zabija.</p>
 </div>
 
-<!-- INFO -->
 <div id="info" class="tab">
-  <h1>Informacje o Fundacji</h1>
-
-  <div class="card">
-    <h3>Misja</h3>
-    <p>Zabezpieczać. Przechowywać. Chronić.</p>
-  </div>
-
-  <div class="card">
-    <h3>Poziom dostępu</h3>
-    <p>Dostęp tylko dla upoważnionego personelu.</p>
-  </div>
+  <h2>Informacje</h2>
+  <p>Poziom dostępu: TAJNE</p>
+  <p>Status placówki: stabilny</p>
+  <p>MTF: gotowe do akcji</p>
 </div>
-
-<!-- STARE AI -->
-<div id="ai" class="tab">
-  <h1>Archiwum: Stare AI 🤖</h1>
-
-  <div class="card">
-    <h3>ZPC-CHAT v1</h3>
-    <p>Status: Wyłączony po incydencie.</p>
-  </div>
-
-  <div class="card">
-    <h3>ZPC-CORE</h3>
-    <p>Status: Próby komunikacji nadal trwają...</p>
-  </div>
-</div>
-
-</section>
 
 <script>
-if(localStorage.getItem("zalogowany") !== "tak"){
-  window.location.href = "index.html";
+let currentUser = localStorage.getItem("loggedUser");
+document.getElementById("who").textContent = currentUser;
+
+function openTab(tab){
+  document.querySelectorAll(".tab").forEach(t=>t.style.display="none");
+  document.getElementById(tab).style.display="block";
 }
 
-const rola = localStorage.getItem("rola");
-document.getElementById("rola").innerText = "Zalogowano jako: " + rola;
-
-function wyloguj(){
-  localStorage.removeItem("zalogowany");
-  localStorage.removeItem("rola");
-  window.location.href = "index.html";
-}
-
-function openTab(tabName){
-  const tabs = document.getElementsByClassName("tab");
-  for(let tab of tabs){
-    tab.style.display = "none";
-  }
-  document.getElementById(tabName).style.display = "block";
+function openAI(){
+  window.location.href = "ai.html";
 }
 
 openTab('scp');
-
-// 🔐 STARE AI – hasło + 3 próby
-let proby = 0;
-const hasloAI = "scp2024";
-
-function stareAI(){
-  if(proby >= 3){
-    alert("Dostęp zablokowany.");
-    return;
-  }
-
-  let wpisane = prompt("Podaj hasło dostępu do archiwum AI:");
-
-  if(wpisane === hasloAI){
-    openTab('ai');
-  } else {
-    proby++;
-    alert("Błędne hasło. Próba " + proby + "/3");
-  }
-}
 </script>
 
 </body>
