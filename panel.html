@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel | Fundacja</title>
+<title>Panel | Fundacja ZPC</title>
 
 <style>
 body{
@@ -24,6 +24,7 @@ nav{
 .menu{
   display:flex;
   gap:15px;
+  padding:15px;
 }
 
 .menu button{
@@ -59,20 +60,22 @@ button{
 <body>
 
 <nav>
-  <h2>Fundacja ADO</h2>
+  <h2>Fundacja ZPC</h2>
   <div>
     <span id="rola"></span>
     <button onclick="wyloguj()" style="background:#ef4444;margin-left:15px">Wyloguj</button>
   </div>
 </nav>
 
-<div class="menu" style="padding:15px">
+<div class="menu">
   <button onclick="openTab('scp')">SCP</button>
   <button onclick="openTab('info')">Informacje</button>
+  <button onclick="stareAI()">Stare AI</button>
 </div>
 
 <section>
 
+<!-- SCP -->
 <div id="scp" class="tab">
   <h1>Baza SCP 🧪</h1>
 
@@ -92,6 +95,7 @@ button{
   </div>
 </div>
 
+<!-- INFO -->
 <div id="info" class="tab">
   <h1>Informacje o Fundacji</h1>
 
@@ -103,6 +107,21 @@ button{
   <div class="card">
     <h3>Poziom dostępu</h3>
     <p>Dostęp tylko dla upoważnionego personelu.</p>
+  </div>
+</div>
+
+<!-- STARE AI -->
+<div id="ai" class="tab">
+  <h1>Archiwum: Stare AI 🤖</h1>
+
+  <div class="card">
+    <h3>ZPC-CHAT v1</h3>
+    <p>Status: Wyłączony po incydencie.</p>
+  </div>
+
+  <div class="card">
+    <h3>ZPC-CORE</h3>
+    <p>Status: Próby komunikacji nadal trwają...</p>
   </div>
 </div>
 
@@ -131,6 +150,26 @@ function openTab(tabName){
 }
 
 openTab('scp');
+
+// 🔐 STARE AI – hasło + 3 próby
+let proby = 0;
+const hasloAI = "scp2024";
+
+function stareAI(){
+  if(proby >= 3){
+    alert("Dostęp zablokowany.");
+    return;
+  }
+
+  let wpisane = prompt("Podaj hasło dostępu do archiwum AI:");
+
+  if(wpisane === hasloAI){
+    openTab('ai');
+  } else {
+    proby++;
+    alert("Błędne hasło. Próba " + proby + "/3");
+  }
+}
 </script>
 
 </body>
