@@ -1,92 +1,25 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Logowanie | Fundacja</title>
-
-<style>
-body{
-  margin:0;
-  font-family: Arial;
-  background:#0f172a;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
-
-.box{
-  background:#1e293b;
-  padding:40px;
-  border-radius:14px;
-  text-align:center;
-  width:280px;
-}
-
-input{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border:none;
-  border-radius:8px;
-}
-
-button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  background:#22c55e;
-  color:white;
-  font-size:16px;
-}
-
-#error{
-  color:#f87171;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Fundacja SCP</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="box">
-  <h2>Panel Fundacji</h2>
-  <input id="login" placeholder="Login">
-  <input id="haslo" type="password" placeholder="Hasło">
-  <button onclick="login()">Zaloguj</button>
-  <p id="error"></p>
-</div>
+    <header>
+        <h1>FUNDACJA SCP</h1>
+        <p>Zabezpieczyć. Przechować. Chronić.</p>
+    </header>
 
-<script>
-// 👇 BAZA KONT
-const konta = [
-  {login:"o5", haslo:"secure123", rola:"Rada O5"},
-  {login:"mtf", haslo:"taskforce", rola:"MTF Operative"},
-  {login:"research", haslo:"lab123", rola:"Researcher"}
-];
+    <main>
+        <h2>Baza obiektów</h2>
 
-function login(){
-  const loginInput = document.getElementById("login").value;
-  const hasloInput = document.getElementById("haslo").value;
-
-  const konto = konta.find(k => k.login === loginInput && k.haslo === hasloInput);
-
-  if(konto){
-    localStorage.setItem("zalogowany","tak");
-    localStorage.setItem("rola", konto.rola);
-    window.location.href = "panel.html";
-  } else {
-    document.getElementById("error").innerText = "Zły login lub hasło";
-  }
-}
-
-if(localStorage.getItem("zalogowany") === "tak"){
-  window.location.href = "panel.html";
-}
-</script>
+        <ul>
+            <li><a href="scps/scp-173.html">SCP-173</a></li>
+            <li><a href="scps/scp-999.html">SCP-999</a></li>
+        </ul>
+    </main>
 
 </body>
 </html>
