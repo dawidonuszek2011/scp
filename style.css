@@ -1,22 +1,16 @@
 body {
-    background: #111;
+    background-color: #111;
     color: #ddd;
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin: 40px;
 }
 
-header {
-    background: #000;
-    padding: 20px;
-    border-bottom: 3px solid red;
-}
-
-h1 {
-    color: red;
+h1, h2 {
+    color: white;
 }
 
 a {
-    color: #ff4444;
+    color: #aaa;
 }
 
 a:hover {
